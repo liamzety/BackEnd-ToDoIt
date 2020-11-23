@@ -25,7 +25,7 @@ async function add(note, user) {
                     ]
                 }
             })
-        return note
+        return await _getById(user)
     } catch (err) {
         console.log('Error, cannot create note', err)
         throw err
@@ -47,6 +47,7 @@ async function update(note, user) {
 
                 }
             })
+        return await _getById(user)
     } catch (err) {
         console.log('Error, cannot update note', err)
         throw err

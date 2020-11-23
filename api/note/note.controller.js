@@ -13,22 +13,21 @@ async function getNote(req, res) {
 // DELETE
 async function removeNote(req, res) {
     const updatedUser = await noteService.remove(req.params.id, req.body.user)
-    console.log('showme', updatedUser)
     res.send(updatedUser)
 
 }
 // CREATE
 async function addNote(req, res) {
     const { note, user } = req.body
-    const notedAdded = await noteService.add(note, user)
-    res.send(notedAdded)
+    const updatedUser = await noteService.add(note, user)
+    res.send(updatedUser)
 }
 
 // UPDATE
 async function updateNote(req, res) {
     const { note, user } = req.body
-    const noteUpdated = await noteService.update(note, user)
-    res.send(noteUpdated)
+    const updatedUser = await noteService.update(note, user)
+    res.send(updatedUser)
 }
 
 
