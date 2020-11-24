@@ -19,15 +19,13 @@ app.use(session({
     cookie: { secure: false }
 }))
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.resolve(__dirname, 'public')));
-} else {
-    const corsOptions = {
-        origin: ['https://to-do-it.netlify.app', 'http://127.0.0.1:3000', 'http://localhost:3000'],
-        credentials: true
-    };
-    app.use(cors(corsOptions));
-}
+
+const corsOptions = {
+    origin: ['https://to-do-it.netlify.app', 'http://127.0.0.1:3000', 'http://localhost:3000'],
+    credentials: true
+};
+app.use(cors(corsOptions));
+
 
 const authRoutes = require('./api/auth/auth.routes')
 const addNoteRoutes = require('./api/note/note.route')
