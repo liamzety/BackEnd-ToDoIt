@@ -7,7 +7,7 @@ async function login(req, res) {
         req.session.user = user;
         res.json(user)
     } catch (err) {
-        res.status(401).send({ error: err })
+        res.status(401).send(err)
     }
 }
 
@@ -19,7 +19,6 @@ async function signup(req, res) {
         req.session.user = user
         res.json(user)
     } catch (err) {
-        console.log('err:?', err)
         res.status(500).send(err)
     }
 }
