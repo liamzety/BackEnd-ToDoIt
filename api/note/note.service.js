@@ -9,7 +9,7 @@ module.exports = {
 }
 
 async function add(note, user) {
-    note.createdAt = Date.now();
+    note.lastUpdatedAt = Date.now();
     note._id = _makeid()
     try {
         const collection = await dbService.getCollection('users')
@@ -34,8 +34,11 @@ async function add(note, user) {
 
 async function update(note, user) {
     const collection = await dbService.getCollection('users')
+    note.lastUpdatedAt = Date.now()
     const userNotes = [...user.notes]
     userNotes.splice(userNotes.findIndex(_note => _note._id === note._id), 1, note)
+    userNotes.sort((a, b) => parseFloat(b.lastUpdatedAt) - parseFloat(a.lastUpdatedAt));
+    console.log('userNotes', userNotes)
     try {
         await collection.updateOne({ "_id": ObjectId(user._id) },
             {
