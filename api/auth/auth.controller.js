@@ -19,7 +19,8 @@ async function signup(req, res) {
         req.session.user = user
         res.json(user)
     } catch (err) {
-        res.status(500).send({ error: 'could not signup, please try later' })
+        console.log('err:?', err)
+        res.status(500).send(err)
     }
 }
 async function logout(req, res) {

@@ -17,25 +17,24 @@ async function getByUsername(username) {
         const user = await collection.findOne({ username })
         return user
     } catch (err) {
-        console.log('Error, cannot create user', err)
+        console.log('Error, cannot get user', err)
         throw err
     }
 }
 
 async function add(user) {
-    //DONE
     user.createdAt = Date.now();
     user.notes = [{
         _id: _makeid(),
         title: "Untitled",
-        body: "Write your ideas here!"
+        body: ""
     }]
     try {
         const collection = await dbService.getCollection('users')
+        if (await getByUsername(user.username)) throw { msg: 'username taken.' }
         await collection.insertOne(user)
         return user
     } catch (err) {
-        console.log('Error, cannot create user', err)
         throw err
     }
 }
