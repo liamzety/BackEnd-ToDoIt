@@ -21,7 +21,7 @@ app.use(session({
 
 
 const corsOptions = {
-    origin: ['https://to-do-it.netlify.app', 'http://127.0.0.1:3000', 'http://localhost:3000'],
+    origin: ['https://scribepad.netlify.app/', 'http://127.0.0.1:3000', 'http://localhost:3000'],
     credentials: true
 };
 app.use(cors(corsOptions));
