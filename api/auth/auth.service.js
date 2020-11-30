@@ -14,10 +14,10 @@ async function login(username, password) {
     return user;
 }
 
-async function signup(password, username) {
-    if (!password || !username) return Promise.reject('username and password are required!')
-    const hash = await bcrypt.hash(password, saltRounds)
-    return await userService.add({ password: hash, username })
+async function signup(user) {
+    if (!user.password || !user.username) return Promise.reject('username and password are required!')
+    user.password = await bcrypt.hash(user.password, saltRounds)
+    return await userService.add(user)
 }
 
 module.exports = {

@@ -11,8 +11,13 @@ async function addUser(req, res) {
     const user = await userService.add(req.body)
     res.send(user)
 }
+async function updateUser(req, res) {
+    const user = await userService.update(req.body)
+    res.send(user)
+}
 
 module.exports = {
     getUser,
-    addUser
+    addUser,
+    updateUser
 };

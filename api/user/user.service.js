@@ -2,6 +2,13 @@
 const dbService = require('../../services/db.service');
 const ObjectId = require('mongodb').ObjectId
 
+module.exports = {
+    add,
+    query,
+    getByUsername,
+    update
+}
+
 async function query(id) {
     try {
         const collection = await dbService.getCollection('users')
@@ -23,12 +30,6 @@ async function getByUsername(username) {
 }
 
 async function add(user) {
-    user.createdAt = Date.now();
-    user.notes = [{
-        _id: _makeid(),
-        title: "Untitled",
-        body: ""
-    }]
     try {
         const collection = await dbService.getCollection('users')
         if (await getByUsername(user.username)) throw { msg: 'username taken.' }
@@ -39,18 +40,16 @@ async function add(user) {
     }
 }
 
-module.exports = {
-    add,
-    query,
-    getByUsername
-}
-function _makeid(length = 14) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+async function update(user) {
 
-    for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    try {
+        const collection = await dbService.getCollection('users')
+        await collection.updateOne({ "_id": ObjectId(user._id) },
+            { $set: { ...user, _id: ObjectId(user._id) } })
+        return user
+    } catch (err) {
+        throw err
     }
-
-    return text;
 }
+
+
