@@ -14,7 +14,7 @@ async function query(id) {
         const collection = await dbService.getCollection('users')
         return await collection.findOne({ "_id": ObjectId(id) })
     } catch (err) {
-        console.log('Error, cannot find users', err)
+        console.log('Error, cannot find user', err)
         throw err
     }
 }
